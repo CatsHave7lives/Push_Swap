@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:47:30 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/05 10:03:49 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:31:05 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ int	ft_atoi(const char *str)
 		num = num * 10 + (str[i] - '0');
 		i++;
 	}
-	return (num * sign);
+	return ((int)(num * sign));
 }
