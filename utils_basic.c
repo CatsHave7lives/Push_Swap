@@ -6,9 +6,17 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 09:25:47 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/05 09:26:05 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/05 10:03:25 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+int	ft_is_overflowed(int sign)
+{
+	if (sign == -1)
+	{
+		return (0);
+	}
+	return (-1);
+}
