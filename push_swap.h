@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:05:08 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/03 13:45:22 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/05 09:07:35 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <limits.h>
 
 typedef struct s_stack
 {
