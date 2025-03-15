@@ -1,5 +1,5 @@
-FILES		=	node_swap.c			node_push.c			node_rotate.c		node_reverse.c	\
-				get_from_stack.c	utils_basic.c		utils_advanced.c	\
+FILES       =   node_swap.c         node_push.c         node_rotate.c       node_reverse.c	\
+                get_from_stack.c    utils_basic.c       utils_advanced.c    \
 
 FILES_BONUS	=	ft_lstnew_bonus.c		ft_lstadd_front_bonus.c		ft_lstsize_bonus.c		ft_lstlast_bonus.c	\
 				ft_lstadd_back_bonus.c	ft_lstdelone_bonus.c		ft_lstclear_bonus.c		ft_lstiter_bonus.c	\
