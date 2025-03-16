@@ -1,33 +1,33 @@
-FILES       =   node_swap.c         node_push.c         node_rotate.c       node_reverse.c	\
-                get_from_stack.c    utils_basic.c       utils_advanced.c    \
+# Files:
+HEADER  =   push_swap.h
+FILES   =   node_swap.c         node_push.c         node_rotate.c       node_reverse.c	\
+            get_from_stack.c    utils_basic.c       utils_advanced.c    main.c
 
-FILES_BONUS	=	ft_lstnew_bonus.c		ft_lstadd_front_bonus.c		ft_lstsize_bonus.c		ft_lstlast_bonus.c	\
-				ft_lstadd_back_bonus.c	ft_lstdelone_bonus.c		ft_lstclear_bonus.c		ft_lstiter_bonus.c	\
-				ft_lstmap_bonus.c
+#FILES_B =   
 
-NAME		= libft.a
+NAME    =   push_swap
 
-OBJS		= $(FILES:.c=.o)
-OBJS_BONUS	= $(FILES_BONUS:.c=.o)
+OBJS    =   $(FILES:.c=.o)
+#OBJS_B  =   $(FILES_B:.c=.o)
 
-CC			= gcc
-FLAGS		= -Wall -Wextra -Werror
+CC      =   cc
+FLAGS   =   -Wall -Wextra -Werror
 
-AR			= ar crs
-RM			= rm -f
+AR      =   ar crs
+RM      =   rm -f
 
 all: $(NAME)
  
 $(NAME): $(OBJS)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c libft.h
+%.o: %.c $(HEADER)
 	$(CC) $(FLAGS) -c $< -o $@
-	$(AR) $(NAME) $@
 
-bonus: $(OBJS_BONUS)
+#bonus: $(OBJS_B)
 
 clean:
-	$(RM) $(OBJS) $(OBJS_BONUS)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
