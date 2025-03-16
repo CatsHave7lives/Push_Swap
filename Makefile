@@ -21,9 +21,6 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c $(HEADER)
-	$(CC) $(FLAGS) -c $< -o $@
-
 #bonus: $(OBJS_B)
 
 clean:
