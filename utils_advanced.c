@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:47:30 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/05 14:31:05 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:12:47 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,10 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return ((int)(num * sign));
+}
+
+char	**arg_check(int ac,char **av)
+{
+	if (ac == 1)
+		exit (EXIT_SUCCESS);
 }
