@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:05:08 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/16 17:31:03 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/24 01:34:37 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ typedef struct s_stack
 }	t_stack;
 
 // utils_basic.c
-int		ft_isspace(int c);
-int		ft_isdigit(int c);
-int		ft_is_overflowed(int sign);
+
 // utils_advanced.c
+
+// ft_atoi.c
 int		ft_atoi(const char *str);
+// ft_split.c
+char	**ft_split(char const *s, char c);
 // get_from_stack.c
 t_stack	*stack_bottom(t_stack *stack);
 // node_swap.c
