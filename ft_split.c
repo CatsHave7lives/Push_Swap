@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 04:07:09 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/24 04:07:10 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/24 08:38:53 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ static size_t	ft_nextword(char const *s, size_t i, char c, size_t *next)
 	return (i);
 }
 
+static void	*ft_arrayfree(char **array, size_t row)
+{
+	while (row-- > 0)
+		free(array[row]);
+	return (free(array), NULL);
+}
+
 static int	ft_strsplit(char const *s, char c, char **array)
 {
 	size_t	i;
@@ -66,7 +73,7 @@ static int	ft_strsplit(char const *s, char c, char **array)
 			i++;
 	}
 	array[row] = NULL;
-	return (1);
+	return (true);
 }
 
 char	**ft_split(char const *s, char c)

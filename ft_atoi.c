@@ -6,29 +6,25 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 04:07:24 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/24 04:07:25 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/24 08:12:51 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <push_swap.h>
 
-static int	ft_isspace(int c)
+static int	ft_isspace(char c)
 {
 	return ((c >= '\t' && c <= '\r') || c == ' ');
 }
 
-static int	ft_isdigit(int c)
+static int	ft_isdigit(char c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-static int	ft_is_overflowed(int sign)
+static int	ft_isoverflow(size_t num, char c)
 {
-	if (sign == -1)
-	{
-		return (0);
-	}
-	return (-1);
+	return (num > LONG_MAX / 10 || (num == LONG_MAX / 10 && (c - '0') > 7));
 }
 
 int	ft_atoi(const char *str)
@@ -50,8 +46,8 @@ int	ft_atoi(const char *str)
 	num = 0;
 	while (ft_isdigit(str[i]))
 	{
-		if (num > LONG_MAX / 10 || (num == LONG_MAX / 10 && (str[i] - '0') > 7))
-			return (ft_is_overflowed(sign));
+		if (ft_isoverflow(num, str[i]))
+			return (-(sign != -1));
 		num = num * 10 + (str[i] - '0');
 		i++;
 	}
