@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:05:08 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/24 09:17:10 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/26 07:12:30 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@ typedef struct s_stack
 	struct s_stack	*lower;
 }	t_stack;
 
-// utils_basic.c
+// utils_libft.c
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-// utils_advanced.c
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-// ft_atoi.c
+// utils_arg.c
+char	**arg_check(int ac,char **av);
+// utils_atoi.c
 int		ft_atoi(const char *str);
-// ft_split.c
+// utils_split.c
 char	**ft_split(char const *s, char c);
-// get_from_stack.c
+// utils_stack.c
 t_stack	*stack_bottom(t_stack *stack);
+bool	stack_is_duplicate(t_stack *node, int value);
 // node_swap.c
 void	sa(t_stack **stack_a);
 void	sb(t_stack **stack_b);
