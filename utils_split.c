@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   utils_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 04:07:09 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/24 08:38:53 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/27 08:27:06 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,24 @@ static size_t	ft_nextword(char const *s, size_t i, char c, size_t *next)
 	return (i);
 }
 
-static void	*ft_arrayfree(char **array, size_t row)
+static char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	while (row-- > 0)
-		free(array[row]);
-	return (free(array), NULL);
+	char	*sub;
+	size_t	s_len;
+	size_t	sub_len;
+
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	sub_len = s_len - start;
+	if (len > sub_len)
+		len = sub_len;
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sub)
+		return (NULL);
+	return (ft_strlcpy(sub, s + start, len + 1), sub);
 }
 
 static int	ft_strsplit(char const *s, char c, char **array)
@@ -66,7 +79,11 @@ static int	ft_strsplit(char const *s, char c, char **array)
 		{
 			array[row] = ft_substr(s, next, i - next);
 			if (!array[row])
-				return ((int)ft_arrayfree(array, row));
+			{
+				while (row-- > 0)
+					free(array[row]);
+				return (free(array), NULL);
+			}
 			row++;
 		}
 		while (s[i] && s[i] == c)

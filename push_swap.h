@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:05:08 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/26 07:12:30 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/27 12:21:48 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ typedef struct s_stack
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *s1);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
 // utils_arg.c
-char	**arg_check(int ac,char **av);
+void	error_exit(char *str);
+void	arg_free(char **av, bool check);
+char	**arg_check(int ac, char **av);
 // utils_atoi.c
 int		ft_atoi(const char *str);
 // utils_split.c

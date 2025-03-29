@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:47:30 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/26 01:59:59 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/27 10:45:24 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,20 @@ char	*ft_strdup(const char *s1)
 	return (ft_strlcpy(dup, s1, s1_len + 1), dup);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_putchar_fd(char c, int fd)
 {
-	char	*sub;
-	size_t	s_len;
-	size_t	sub_len;
+	if (fd < 0)
+		return ;
+	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	i;
 
 	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	sub_len = s_len - start;
-	if (len > sub_len)
-		len = sub_len;
-	sub = (char *)malloc(sizeof(char) * (len + 1));
-	if (!sub)
-		return (NULL);
-	return (ft_strlcpy(sub, s + start, len + 1), sub);
+		return ;
+	i = 0;
+	while (s[i])
+		(ft_putchar_fd(s[i], fd), i++);
 }
