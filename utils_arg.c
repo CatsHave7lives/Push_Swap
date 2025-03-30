@@ -6,20 +6,15 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 09:25:47 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/27 10:39:46 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:41:46 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	error_exit(char *str)
+void	error_exit(void)
 {
-	ft_putstr_fd("Error:\t", STDERR_FILENO);
-	if (!str)
-		ft_putstr_fd("(undefined error)", STDERR_FILENO);
-	else
-		ft_putstr_fd(str, STDERR_FILENO);
-	exit(EXIT_FAILURE);
+	(ft_putstr_fd("Error\n", STDERR_FILENO), exit(EXIT_FAILURE));
 }
 
 void	arg_free(char **av, bool check)
@@ -44,9 +39,36 @@ char	**arg_check(int ac, char **av)
 	{
 		array = ft_split(av[1], ' ');
 		if (!array || !array[0])
-			(arg_free(array, ac == 2), error_exit("empty array"));
+			(arg_free(array, ac == 2), error_exit());
 	}
 	else
 		array = av + 1;
 	return (array);
+}
+
+bool	row_has_space(char *str)
+{
+	int	col;
+
+	col = 0;
+	while (str[col])
+	{
+		if (str[col] == ' ')
+			return (true);
+		col++;
+	}
+}
+
+bool	arg_has_space(char **av)
+{
+	int	row;
+
+	row = 0;
+	while (av[row])
+	{
+		if (row_has_space(av[row]))
+			return (true);
+		row++;
+	}
+	return (false);
 }

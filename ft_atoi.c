@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_atoi.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 04:07:24 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/27 10:53:26 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:18:07 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,39 @@ static bool	ft_isdigit(char c)
 static bool	ft_isoverflow(size_t num, char c)
 {
 	return (num > LONG_MAX / 10 || (num == LONG_MAX / 10 && (c - '0') > 7));
+}
+
+bool	value_is_invalid(char	*str)
+{
+	int	i;
+
+	if (!ft_issign(str[0]) && !ft_isdigit(str[0]))
+		return (true);
+	if (ft_issign(str[0]) && !ft_isdigit(str[1]))
+		return (true);
+	i = 1;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+bool	value_is_dup(t_stack **stack, int value)
+{
+	t_stack	*node;
+
+	if (!stack || !*stack)
+	node = *stack;
+	while (node)
+	{
+		if (node->value == value)
+			return (true);
+		node = node->lower;
+	}
+	return (false);
 }
 
 int	ft_atoi(const char *str)

@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:05:08 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/27 12:21:48 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:49:43 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_stack
 {
 	int				index;
 	int				value;
+	int				m_cost;
+	bool			is_best;
 	struct s_stack	*upper;
 	struct s_stack	*lower;
 }	t_stack;
@@ -33,28 +35,39 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *s1);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
+
 // utils_arg.c
-void	error_exit(char *str);
+void	error_exit(void);
 void	arg_free(char **av, bool check);
 char	**arg_check(int ac, char **av);
-// utils_atoi.c
+bool	row_has_space(char *str);
+bool	arg_has_space(char **av);
+
+// ft_atoi.c
+bool	value_is_invalid(char	*str);
 int		ft_atoi(const char *str);
-// utils_split.c
+
+// ft_split.c
 char	**ft_split(char const *s, char c);
+
 // utils_stack.c
 t_stack	*stack_bottom(t_stack *stack);
 bool	stack_is_duplicate(t_stack *node, int value);
+
 // node_swap.c
 void	sa(t_stack **stack_a);
 void	sb(t_stack **stack_b);
 void	ss(t_stack **stack_a, t_stack **stack_b);
+
 // node_push.c
 void	pa(t_stack **stack_a, t_stack **stack_b);
 void	pb(t_stack **stack_a, t_stack **stack_b);
+
 // node_rotate.c
 void	ra(t_stack **stack_a);
 void	rb(t_stack **stack_b);
 void	rr(t_stack **stack_a, t_stack **stack_b);
+
 // node_reverse.c
 void	rra(t_stack **stack_a);
 void	rrb(t_stack **stack_b);
