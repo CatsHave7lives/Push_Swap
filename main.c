@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 21:52:45 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/29 05:45:17 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:26:11 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ int	main(int ac, char *av[])
 	stack_a = NULL;
 	stack_b = NULL;
 	av = arg_check(ac, av);
+	
 	return (0);
 }

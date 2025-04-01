@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:05:08 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/30 17:49:43 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:52:45 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	**ft_split(char const *s, char c);
 // utils_stack.c
 t_stack	*stack_bottom(t_stack *stack);
 bool	stack_is_duplicate(t_stack *node, int value);
+void	stack_free(t_stack **stack);
+t_stack	*stack_metadata(int value);
 
 // node_swap.c
 void	sa(t_stack **stack_a);

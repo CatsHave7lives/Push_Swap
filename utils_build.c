@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 05:46:27 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/30 18:11:23 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:25:58 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,65 @@ static size_t	ft_arraylen(char **array)
 	return (row);
 }
 
-static char	**append_to_array(char **current_av, int spot)
+static char	**append_to_array(char **av_current, int spot)
 {
 	char	**array;
-	char	**replacement_av;
+	char	**av_replace;
 	size_t	len;
 	int		row;
 	int		i;
 
-	array = ft_split(current_av[spot], ' ');
+	array = ft_split(av_current[spot], ' ');
 	if (!array || !array[0])
 		return (arg_free(array, true), NULL);
-	len = ft_arraylen(current_av) + ft_arraylen(array) -1;
-	replacement_av = (char **)malloc(sizeof(char *) * (len +1));
-	if (!replacement_av)
+	len = ft_arraylen(av_current) + ft_arraylen(array) -1;
+	av_replace = (char **)malloc(sizeof(char *) * (len +1));
+	if (!av_replace)
 		return (arg_free(array, true), NULL);
 	row = 0;
 	while (row < spot)
-		replacement_av[row] = ft_strdup(current_av[row++]);
+		av_replace[row] = ft_strdup(av_current[row++]);
 	i = 0;
 	while (array[i])
-		replacement_av[row++] = ft_strdup(array[i++]);
+		av_replace[row++] = ft_strdup(array[i++]);
 	spot++;
-	while (current_av[spot])
-		replacement_av[row++] = ft_strdup(current_av[spot]);
-	replacement_av[row] = NULL;
-	return (arg_free(array, true), replacement_av);
+	while (av_current[spot])
+		av_replace[row++] = ft_strdup(av_current[spot]);
+	av_replace[row] = NULL;
+	return (arg_free(array, true), av_replace);
 }
 
-void	
+static void	build_node(t_stack **stack_a, int value)
+{
+	t_stack	*node_current;
+	t_stack	*node_add;
 
-char	**build_stack(t_stack **stack_a, char **av, bool ac2)
+	if (!stack_a)
+		return ;
+	node_add = stack_metadata(value);
+	if (!node_add)
+		return ;
+	if (!*stack_a)
+		*stack_a = node_add;
+	else
+	{
+		node_current = *stack_a;
+		while (node_current->lower)
+			node_current = node_current->lower;
+		node_current->lower = node_add;
+		node_add->upper = node_current;
+	}
+}
+
+static void	value_validation(t_stack **stack_a, char **av, long value, bool ac_is_2)
+{
+	if (value < INT_MIN || value > INT_MAX)
+		(stack_free(stack_a), arg_free(av, ac_is_2), error_exit());
+	if (value_is_dup(stack_a, (int)value))
+		(stack_free(stack_a), arg_free(av, ac_is_2), error_exit());
+}
+
+char	**build_stack(t_stack **stack_a, char **av, bool ac_is_2)
 {
 	int		row;
 	char	**default_av;
@@ -69,18 +97,15 @@ char	**build_stack(t_stack **stack_a, char **av, bool ac2)
 			av = append_to_array(av, row);
 			if (!av || !av[0])
 				(stack_free(stack_a), arg_free(av, true), error_exit());
-			if (ac2)
+			if (ac_is_2)
 				arg_free(default_av, true);
-			ac2 = true;
+			ac_is_2 = true;
 		}
 		if (value_is_invalid(av[row]))
-			(stack_free(stack_a), arg_free(av, ac2), error_exit());
+			(stack_free(stack_a), arg_free(av, ac_is_2), error_exit());
 		value = ft_atol(av[row++]);
-		if (value < INT_MIN || value > INT_MAX)
-			(stack_free(stack_a), arg_free(av, ac2), error_exit());
-		if (value_is_dup(stack_a, (int)value))
-			(stack_free(stack_a), arg_free(av, ac2), error_exit());
-		
+		value_validation(stack_a, av, value, ac_is_2);
+		build_node(stack_a, (int)value);
 	}
 	return (av);
 }
