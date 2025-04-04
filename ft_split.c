@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_split.c                                      :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 04:07:09 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/29 03:37:44 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:48:45 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <push_swap.h>
+#include "push_swap.h"
 
 static size_t	ft_wordcount(char const *s, char delimiter)
 {
@@ -64,7 +64,7 @@ static char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ft_strlcpy(sub, s + start, len + 1), sub);
 }
 
-static int	ft_strsplit(char const *s, char c, char **array)
+static bool	ft_strsplit(char const *s, char c, char **array)
 {
 	size_t	i;
 	size_t	row;
@@ -82,7 +82,7 @@ static int	ft_strsplit(char const *s, char c, char **array)
 			{
 				while (row-- > 0)
 					free(array[row]);
-				return (free(array), NULL);
+				return (free(array), false);
 			}
 			row++;
 		}

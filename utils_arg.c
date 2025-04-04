@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 09:25:47 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/30 15:41:46 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:49:13 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ bool	row_has_space(char *str)
 			return (true);
 		col++;
 	}
+	return (false);
 }
 
 bool	arg_has_space(char **av)

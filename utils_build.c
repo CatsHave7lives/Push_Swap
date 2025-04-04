@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 05:46:27 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/01 19:25:58 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/04 10:25:09 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,24 @@ static void	build_node(t_stack **stack_a, int value)
 	}
 }
 
-static void	value_validation(t_stack **stack_a, char **av, long value, bool ac_is_2)
+static void	value_validation(t_stack **stack_a, char **av, int value, bool ac2)
 {
-	if (value < INT_MIN || value > INT_MAX)
-		(stack_free(stack_a), arg_free(av, ac_is_2), error_exit());
-	if (value_is_dup(stack_a, (int)value))
-		(stack_free(stack_a), arg_free(av, ac_is_2), error_exit());
+	t_stack	*node;
+
+	node = *stack_a;
+	while (node)
+	{
+		if (node->value == value)
+			(stack_free(stack_a), arg_free(av, ac2), error_exit());
+		node = node->lower;
+	}
 }
 
 char	**build_stack(t_stack **stack_a, char **av, bool ac_is_2)
 {
 	int		row;
 	char	**default_av;
-	long	value;
+	int		value;
 
 	row = 0;
 	while (av[row])
@@ -103,9 +108,9 @@ char	**build_stack(t_stack **stack_a, char **av, bool ac_is_2)
 		}
 		if (value_is_invalid(av[row]))
 			(stack_free(stack_a), arg_free(av, ac_is_2), error_exit());
-		value = ft_atol(av[row++]);
+		value = ft_atoi(av[row++]);
 		value_validation(stack_a, av, value, ac_is_2);
-		build_node(stack_a, (int)value);
+		build_node(stack_a, value);
 	}
 	return (av);
 }
