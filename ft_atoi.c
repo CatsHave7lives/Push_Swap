@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 04:07:24 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/04 16:47:00 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:53:56 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ bool	value_is_dup(t_stack **stack, int value)
 	return (false);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int		i;
-	int		sign;
-	size_t	num;
+	long	sign;
+	long	num;
 
 	i = 0;
 	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
@@ -75,10 +75,12 @@ int	ft_atoi(const char *str)
 	num = 0;
 	while (ft_isdigit(str[i]))
 	{
-		if (num > LONG_MAX / 10 || (num == LONG_MAX / 10 && (str[i] - '0') > 7))
-			return (-(sign != -1));
+		// if (num > LONG_MAX / 10 || (num == LONG_MAX / 10 && (str[i] - '0') > 7))
+		// 	return (-(sign != -1));
+		if (num > INT_MAX || (num * sign) < INT_MIN)
+			return (num * sign);
 		num = num * 10 + (str[i] - '0');
 		i++;
 	}
-	return ((int)(num * sign));
+	return ((num * sign));
 }

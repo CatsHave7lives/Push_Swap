@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:47:30 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/27 10:45:24 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:58:03 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		return (ft_strlen(src));
 	i = 0;
 	while (src[i] && i < dstsize - 1)
-		dst[i] = src[i++];
+	{
+		dst[i] = src[i];
+		i++;
+	}
 	return ((dst[i] = '\0'), ft_strlen(src));
 }
 

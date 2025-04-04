@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 04:07:09 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/04 16:48:45 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:59:11 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static char	*ft_substr(char const *s, unsigned int start, size_t len)
 	sub = (char *)malloc(sizeof(char) * (len + 1));
 	if (!sub)
 		return (NULL);
-	return (ft_strlcpy(sub, s + start, len + 1), sub);
+	ft_strlcpy(sub, s + start, len + 1);
+	return (sub);
 }
 
 static bool	ft_strsplit(char const *s, char c, char **array)

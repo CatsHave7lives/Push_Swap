@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 05:46:27 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/04 10:25:09 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/04 21:32:20 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,18 @@ static char	**append_to_array(char **av_current, int spot)
 		return (arg_free(array, true), NULL);
 	row = 0;
 	while (row < spot)
-		av_replace[row] = ft_strdup(av_current[row++]);
+	{
+		av_replace[row] = ft_strdup(av_current[row]);
+		row++;
+	}
 	i = 0;
 	while (array[i])
-		av_replace[row++] = ft_strdup(array[i++]);
-	spot++;
-	while (av_current[spot])
+	{
+		av_replace[row] = ft_strdup(array[i]);
+		row++;
+		i++;
+	}
+	while (av_current[++spot])
 		av_replace[row++] = ft_strdup(av_current[spot]);
 	av_replace[row] = NULL;
 	return (arg_free(array, true), av_replace);
@@ -91,7 +97,7 @@ char	**build_stack(t_stack **stack_a, char **av, bool ac_is_2)
 {
 	int		row;
 	char	**default_av;
-	int		value;
+	long	value;
 
 	row = 0;
 	while (av[row])
@@ -109,6 +115,8 @@ char	**build_stack(t_stack **stack_a, char **av, bool ac_is_2)
 		if (value_is_invalid(av[row]))
 			(stack_free(stack_a), arg_free(av, ac_is_2), error_exit());
 		value = ft_atoi(av[row++]);
+		if (value > INT_MAX || value < INT_MIN)
+			(stack_free(stack_a), arg_free(av, true), error_exit());
 		value_validation(stack_a, av, value, ac_is_2);
 		build_node(stack_a, value);
 	}

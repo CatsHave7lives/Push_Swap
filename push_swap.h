@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 10:05:08 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/03 22:19:00 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:47:47 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_putstr_fd(char *s, int fd);
 // ft_atoi.c
 bool	value_is_invalid(char *str);
 bool	value_is_dup(t_stack **stack, int value);
-int		ft_atoi(const char *str);
+long	ft_atoi(const char *str);
 
 // ft_split.c
 char	**ft_split(char const *s, char c);
