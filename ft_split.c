@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 04:07:09 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/04 17:59:11 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/05 20:24:06 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,6 @@ static size_t	ft_nextword(char const *s, size_t i, char c, size_t *next)
 	while (s[i] && s[i] != c)
 		i++;
 	return (i);
-}
-
-static char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*sub;
-	size_t	s_len;
-	size_t	sub_len;
-
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	sub_len = s_len - start;
-	if (len > sub_len)
-		len = sub_len;
-	sub = (char *)malloc(sizeof(char) * (len + 1));
-	if (!sub)
-		return (NULL);
-	ft_strlcpy(sub, s + start, len + 1);
-	return (sub);
 }
 
 static bool	ft_strsplit(char const *s, char c, char **array)

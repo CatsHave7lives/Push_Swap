@@ -6,13 +6,13 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 08:47:30 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/04 17:58:03 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/05 20:49:24 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-size_t	ft_strlen(const char *s)
+static size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+static size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 
@@ -49,20 +49,23 @@ char	*ft_strdup(const char *s1)
 	return (ft_strlcpy(dup, s1, s1_len + 1), dup);
 }
 
-void	ft_putchar_fd(char c, int fd)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	if (fd < 0)
-		return ;
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	size_t	i;
+	char	*sub;
+	size_t	s_len;
+	size_t	sub_len;
 
 	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-		(ft_putchar_fd(s[i], fd), i++);
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	sub_len = s_len - start;
+	if (len > sub_len)
+		len = sub_len;
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sub)
+		return (NULL);
+	ft_strlcpy(sub, s + start, len + 1);
+	return (sub);
 }

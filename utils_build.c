@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 05:46:27 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/04 21:32:20 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/05 21:13:39 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,41 +24,63 @@ static size_t	ft_arraylen(char **array)
 	return (row);
 }
 
-static char	**append_to_array(char **av_current, int spot)
+static void	fill_new_av(char **av_rep, char **av_cur, char **array, int spot)
 {
-	char	**array;
-	char	**av_replace;
-	size_t	len;
 	int		row;
 	int		i;
 
-	array = ft_split(av_current[spot], ' ');
-	if (!array || !array[0])
-		return (arg_free(array, true), NULL);
-	len = ft_arraylen(av_current) + ft_arraylen(array) -1;
-	av_replace = (char **)malloc(sizeof(char *) * (len +1));
-	if (!av_replace)
-		return (arg_free(array, true), NULL);
 	row = 0;
 	while (row < spot)
 	{
-		av_replace[row] = ft_strdup(av_current[row]);
+		av_rep[row] = ft_strdup(av_cur[row]);
 		row++;
 	}
 	i = 0;
 	while (array[i])
 	{
-		av_replace[row] = ft_strdup(array[i]);
+		av_rep[row] = ft_strdup(array[i]);
 		row++;
 		i++;
 	}
-	while (av_current[++spot])
-		av_replace[row++] = ft_strdup(av_current[spot]);
-	av_replace[row] = NULL;
-	return (arg_free(array, true), av_replace);
+	while (av_cur[++spot])
+		av_rep[row++] = ft_strdup(av_cur[spot]);
+	av_rep[row] = NULL;
 }
 
-static void	build_node(t_stack **stack_a, int value)
+char	**append_to_array(char **av_current, int spot)
+{
+	char	**array;
+	char	**av_replace;
+	size_t	len;
+
+	array = ft_split(av_current[spot], ' ');
+	if (!array || !array[0])
+		return (free_arg(array, true), NULL);
+	len = ft_arraylen(av_current) + ft_arraylen(array) -1;
+	av_replace = (char **)malloc(sizeof(char *) * (len +1));
+	if (!av_replace)
+		return (free_arg(array, true), NULL);
+	fill_new_av(av_replace, av_current, array, spot);
+	return (free_arg(array, true), av_replace);
+}
+
+static t_stack	*stack_metadata(int value)
+{
+	t_stack	*node;
+
+	node = (t_stack *)malloc(sizeof(t_stack));
+	if (!node)
+		return (NULL);
+	node->index = 0;
+	node->value = value;
+	node->m_cost = 0;
+	node->is_best = false;
+	node->upper = NULL;
+	node->lower = NULL;
+	return (node);
+}
+
+void	build_node(t_stack **stack_a, int value)
 {
 	t_stack	*node_current;
 	t_stack	*node_add;
@@ -78,47 +100,4 @@ static void	build_node(t_stack **stack_a, int value)
 		node_current->lower = node_add;
 		node_add->upper = node_current;
 	}
-}
-
-static void	value_validation(t_stack **stack_a, char **av, int value, bool ac2)
-{
-	t_stack	*node;
-
-	node = *stack_a;
-	while (node)
-	{
-		if (node->value == value)
-			(stack_free(stack_a), arg_free(av, ac2), error_exit());
-		node = node->lower;
-	}
-}
-
-char	**build_stack(t_stack **stack_a, char **av, bool ac_is_2)
-{
-	int		row;
-	char	**default_av;
-	long	value;
-
-	row = 0;
-	while (av[row])
-	{
-		if (row_has_space(av[row]))
-		{
-			default_av = av;
-			av = append_to_array(av, row);
-			if (!av || !av[0])
-				(stack_free(stack_a), arg_free(av, true), error_exit());
-			if (ac_is_2)
-				arg_free(default_av, true);
-			ac_is_2 = true;
-		}
-		if (value_is_invalid(av[row]))
-			(stack_free(stack_a), arg_free(av, ac_is_2), error_exit());
-		value = ft_atoi(av[row++]);
-		if (value > INT_MAX || value < INT_MIN)
-			(stack_free(stack_a), arg_free(av, true), error_exit());
-		value_validation(stack_a, av, value, ac_is_2);
-		build_node(stack_a, value);
-	}
-	return (av);
 }

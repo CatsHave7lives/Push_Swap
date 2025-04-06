@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_arg.c                                        :+:      :+:    :+:   */
+/*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 09:25:47 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/04 17:59:41 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/05 22:38:27 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	error_exit(void)
+void	free_stack(t_stack **stack)
 {
-	(ft_putstr_fd("Error\n", STDERR_FILENO), exit(EXIT_FAILURE));
+	t_stack	*node;
+	t_stack	*node_lower;
+
+	if (!stack || !*stack)
+		return ;
+	node = *stack;
+	while (node)
+	{
+		node_lower = node->lower;
+		free(node);
+		node = node_lower;
+	}
 }
 
-void	arg_free(char **av, bool check)
+void	free_arg(char **av, bool check)
 {
 	int	i;
 
@@ -29,47 +40,15 @@ void	arg_free(char **av, bool check)
 	free(av);
 }
 
-char	**arg_check(int ac, char **av)
+void	error_exit(void)
 {
-	char	**array;
-
-	if (ac == 1)
-		exit (EXIT_FAILURE);
-	if (ac == 2)
-	{
-		array = ft_split(av[1], ' ');
-		if (!array || !array[0])
-			(arg_free(array, ac == 2), error_exit());
-	}
-	else
-		array = av + 1;
-	return (array);
+	write(STDERR_FILENO, "Error\n", 6);
+	exit(EXIT_FAILURE);
 }
 
-bool	row_has_space(char *str)
+void	free_error(t_stack **stack, char **av, bool check)
 {
-	int	col;
-
-	col = 0;
-	while (str[col])
-	{
-		if (str[col] == ' ')
-			return (true);
-		col++;
-	}
-	return (false);
-}
-
-bool	arg_has_space(char **av)
-{
-	int	row;
-
-	row = 0;
-	while (av[row])
-	{
-		if (row_has_space(av[row]))
-			return (true);
-		row++;
-	}
-	return (false);
+	free_stack(stack);
+	free_arg(av, check);
+	error_exit();
 }
