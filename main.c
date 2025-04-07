@@ -6,13 +6,13 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 21:52:45 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/05 22:26:18 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/07 01:34:40 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	**arg_check(int ac, char **av)
+static char	**arg_check(int ac, char **av)
 {
 	char	**array;
 
@@ -26,20 +26,83 @@ char	**arg_check(int ac, char **av)
 	return (array);
 }
 
-int	main(int ac, char *av[])
+static bool stack_is_sorted(t_stack *stack_a)
 {
+	t_stack	*node;
+
+	if (!stack_a)
+		return (false);
+	node = stack_a;
+	while (node->lower)
+	{
+		if (node->value > node->lower->value)
+			return (false);
+		node = node->lower;
+	}
+	return (true);
+}
+
+static int	stack_size(t_stack *stack_a)
+{
+	t_stack	*node;
+	int		size;
+
+	node = stack_a;
+	size = 0;
+	while (node)
+	{
+		size++;
+		node = node->lower;
+	}
+	return (size);
+}
+
+static void	free_av(int ac, char **av)
+{
+	int		row;
+	int		col;
+	bool	check;
+
+	if (ac == 2)
+		free_arg(av, true);
+	row = 0;
+	while (av[row])
+	{
+		col = 0;
+		while (av[row][col])
+		{
+			if (av[row][col] == ' ')
+				return (free_arg(av, true));
+			col++;
+		}
+		row++;
+	}
+}
+
+static void leaks(void)
+{
+	system("leaks push_swap");
+}
+
+int	main(int ac, char **av)
+{
+	atexit(leaks);
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
+	stack_a = NULL;
+	stack_b = NULL;
 	av = build_stack(&stack_a, arg_check(ac, av), (ac == 2));
-	while (stack_a)
+	if (!stack_is_sorted(stack_a))
 	{
-		printf("%d\n", stack_a->value);
-		stack_a = stack_a->lower;
+		if (stack_size(stack_a) == 2)
+			sort_two(&stack_a);
+		else if (stack_size(stack_a) == 3)
+			sort_three(&stack_a);
+		else if (stack_size(stack_a) == 4 || stack_size(stack_a) == 5)
+			sort_five(&stack_a, &stack_a);
+		else
+			sort_stack(&stack_a, &stack_b);
 	}
-	// if (!stack_sort(stack_a))
-	// {
-		
-	// }
-	return (0);
+	return (free_av(ac, av), free_stack(&stack_a), EXIT_SUCCESS);
 }
