@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 05:46:27 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/07 06:01:22 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/08 22:40:41 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,14 @@ static t_stack	*stack_metadata(int value)
 	if (!node)
 		return (NULL);
 	node->index = 0;
+	node->rank = 0;
 	node->value = value;
-	node->m_cost = 0;
+	node->move_cost = 0;
+	node->above_mid = false;
 	node->is_best = false;
 	node->upper = NULL;
 	node->lower = NULL;
+	node->a_target = NULL;
 	return (node);
 }
 

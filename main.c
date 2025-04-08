@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 21:52:45 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/07 01:34:40 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:38:39 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	**arg_check(int ac, char **av)
 	return (array);
 }
 
-static bool stack_is_sorted(t_stack *stack_a)
+static bool	stack_is_sorted(t_stack *stack_a)
 {
 	t_stack	*node;
 
@@ -40,21 +40,6 @@ static bool stack_is_sorted(t_stack *stack_a)
 		node = node->lower;
 	}
 	return (true);
-}
-
-static int	stack_size(t_stack *stack_a)
-{
-	t_stack	*node;
-	int		size;
-
-	node = stack_a;
-	size = 0;
-	while (node)
-	{
-		size++;
-		node = node->lower;
-	}
-	return (size);
 }
 
 static void	free_av(int ac, char **av)
@@ -79,17 +64,17 @@ static void	free_av(int ac, char **av)
 	}
 }
 
-static void leaks(void)
+static void	leaks(void)
 {
 	system("leaks push_swap");
 }
 
 int	main(int ac, char **av)
 {
-	atexit(leaks);
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
+	atexit(leaks);
 	stack_a = NULL;
 	stack_b = NULL;
 	av = build_stack(&stack_a, arg_check(ac, av), (ac == 2));
