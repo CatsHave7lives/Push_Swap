@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 21:04:25 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/09 00:39:04 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/09 00:58:30 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	total_cost(t_stack *b_i, int a_move_cost, int b_move_cost)
 {
 	int	move_cost;
+
 	if (b_i->above_mid == b_i->a_target->above_mid)
 	{
 		if (a_move_cost > b_move_cost)
@@ -35,7 +36,7 @@ void	update_move_cost(t_stack **stack_a, t_stack **stack_b)
 	int		b_move_cost;
 	int		b_size;
 
-	if(!stack_b || !*stack_b)
+	if (!stack_b || !*stack_b)
 		return ;
 	b_i = *stack_b;
 	a_size = stack_size(*stack_a);
