@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 06:38:21 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/08 21:08:56 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/09 02:39:57 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,23 @@ void	sort_five(t_stack **stack_a, t_stack **stack_b)
 	sort_three(stack_a);
 	while (*stack_b)
 		pa(stack_a, stack_b);
+}
+
+void	sort_stack(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*n_i;
+	t_stack	*n_value_lowest;
+
+	sort_rank(stack_a, stack_b);
+	while(*stack_b)
+		(update_stack(stack_a, stack_b), sort_to_a(stack_a, stack_b));
+	update_stack(stack_a, stack_b);
+	n_value_lowest = stack_value_lowest(*stack_a);
+	while (*stack_a != n_value_lowest)
+	{
+		if (n_value_lowest->above_mid)
+			ra(stack_a);
+		else
+			rra(stack_a);
+	}
 }
