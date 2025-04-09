@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 01:21:22 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/09 02:43:24 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/09 02:44:34 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	sort_rank(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack *a_i;
+	t_stack	*a_i;
 
-	while(stack_size(*stack_a) > 3)
+	while (stack_size(*stack_a) > 3)
 	{
 		a_i = *stack_a;
 		update_stack(stack_a, stack_b);
@@ -28,7 +28,7 @@ void	sort_rank(t_stack **stack_a, t_stack **stack_b)
 	sort_three(stack_a);
 }
 
-static t_stack *node_is_best(t_stack **stack_b)
+static t_stack	*node_is_best(t_stack **stack_b)
 {
 	t_stack	*b_i;
 
@@ -44,7 +44,7 @@ static t_stack *node_is_best(t_stack **stack_b)
 	return (NULL);
 }
 
-static void best_to_top(t_stack **stack, t_stack *n_is_best, bool is_a)
+static void	best_to_top(t_stack **stack, t_stack *n_is_best, bool is_a)
 {
 	if (!stack || !*stack)
 		return ;
