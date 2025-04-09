@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 01:21:22 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/09 02:44:34 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/09 03:43:28 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	sort_to_a(t_stack **stack_a, t_stack **stack_b)
 	else if (!b_is_best->above_mid && !b_is_best->a_target->above_mid)
 	{
 		while (*stack_a != b_is_best->a_target && *stack_b != b_is_best)
-			rr(stack_a, stack_b);
+			rrr(stack_a, stack_b);
 		update_stack(stack_a, stack_b);
 	}
 	best_to_top(stack_a, b_is_best->a_target, true);

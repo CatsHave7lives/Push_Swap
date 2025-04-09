@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 21:38:14 by aessaber          #+#    #+#             */
-/*   Updated: 2025/03/15 21:55:21 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/09 03:10:11 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static bool	node_reverse(t_stack **stack)
 void	rra(t_stack **stack_a)
 {
 	if (node_reverse(stack_a))
-		write(1, "rra\n", 3);
+		write(1, "rra\n", 4);
 }
 
 void	rrb(t_stack **stack_b)
 {
 	if (node_reverse(stack_b))
-		write(1, "rrb\n", 3);
+		write(1, "rrb\n", 4);
 }
 
 void	rrr(t_stack **stack_a, t_stack **stack_b)
@@ -51,5 +51,5 @@ void	rrr(t_stack **stack_a, t_stack **stack_b)
 	reverse_a = node_reverse(stack_a);
 	reverse_b = node_reverse(stack_b);
 	if (reverse_a || reverse_b)
-		write(1, "rrr\n", 3);
+		write(1, "rrr\n", 4);
 }

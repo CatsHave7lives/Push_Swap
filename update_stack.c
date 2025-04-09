@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:10:07 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/08 22:06:39 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/09 03:36:11 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	update_stack(t_stack **stack_a, t_stack **stack_b)
 	(update_index(stack_a), update_index(stack_b));
 	(update_rank(stack_a), update_rank(stack_b));
 	(update_above_mid(stack_a), update_above_mid(stack_b));
+	update_target(stack_a, stack_b);
 	update_move_cost(stack_a, stack_b);
 	update_is_best(stack_b);
-	update_target(stack_a, stack_b);
 }

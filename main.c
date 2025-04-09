@@ -6,7 +6,7 @@
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 21:52:45 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/09 01:38:58 by aessaber         ###   ########.fr       */
+/*   Updated: 2025/04/09 04:50:50 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	free_av(int ac, char **av)
 {
 	int		row;
 	int		col;
-	bool	check;
 
 	if (ac == 2)
 		free_arg(av, true);
@@ -64,17 +63,11 @@ static void	free_av(int ac, char **av)
 	}
 }
 
-static void	leaks(void)
-{
-	system("leaks push_swap");
-}
-
 int	main(int ac, char **av)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
-	atexit(leaks);
 	stack_a = NULL;
 	stack_b = NULL;
 	av = build_stack(&stack_a, arg_check(ac, av), (ac == 2));
@@ -85,7 +78,7 @@ int	main(int ac, char **av)
 		else if (stack_size(stack_a) == 3)
 			sort_three(&stack_a);
 		else if (stack_size(stack_a) == 4 || stack_size(stack_a) == 5)
-			sort_five(&stack_a, &stack_a);
+			sort_five(&stack_a, &stack_b);
 		else
 			sort_stack(&stack_a, &stack_b);
 	}
