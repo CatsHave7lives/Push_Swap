@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker_main_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aessaber <aessaber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/15 21:52:45 by aessaber          #+#    #+#             */
-/*   Updated: 2025/04/09 04:50:50 by aessaber         ###   ########.fr       */
+/*   Created: 2025/04/09 22:02:06 by aessaber          #+#    #+#             */
+/*   Updated: 2025/04/11 03:28:05 by aessaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker_bonus.h"
+
+static bool	av_has_space(char **av)
+{
+	int		row;
+	int		col;
+
+	row = 0;
+	while (av[row])
+	{
+		col = 0;
+		while (av[row][col])
+		{
+			if (av[row][col] == ' ')
+				return (true);
+			col++;
+		}
+		row++;
+	}
+	return (false);
+}
 
 static char	**arg_check(int ac, char **av)
 {
@@ -42,45 +62,40 @@ static bool	stack_is_sorted(t_stack *stack_a)
 	return (true);
 }
 
-static void	free_av(int ac, char **av)
+static void	get_moves(t_stack **stack_a, t_stack **stack_b, bool ac2, char **av)
 {
-	int		row;
-	int		col;
+	char	*move;
 
-	if (ac == 2)
-		free_arg(av, true);
-	row = 0;
-	while (av[row])
+	move = get_next_line(STDIN_FILENO);
+	while (move)
 	{
-		col = 0;
-		while (av[row][col])
+		if (validate_move(move, stack_a, stack_b) == 1)
 		{
-			if (av[row][col] == ' ')
-				return (free_arg(av, true));
-			col++;
+			free(move);
+			free_error(stack_a, av, ac2);
 		}
-		row++;
+		free(move);
+		move = get_next_line(STDIN_FILENO);
 	}
+	free(move);
 }
 
 int	main(int ac, char **av)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	bool	has_space;
 
 	stack_a = NULL;
 	stack_b = NULL;
+	has_space = av_has_space(av);
 	av = build_stack(&stack_a, arg_check(ac, av), (ac == 2));
-	if (!stack_is_sorted(stack_a))
-	{
-		if (stack_size(stack_a) == 2)
-			sort_two(&stack_a);
-		else if (stack_size(stack_a) == 3)
-			sort_three(&stack_a);
-		else if (stack_size(stack_a) == 4 || stack_size(stack_a) == 5)
-			sort_five(&stack_a, &stack_b);
-		else
-			sort_stack(&stack_a, &stack_b);
-	}
-	return (free_av(ac, av), free_stack(&stack_a), EXIT_SUCCESS);
+	get_moves(&stack_a, &stack_b, ac == 2, av);
+	if (stack_is_sorted(stack_a))
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	if ((ac == 2) || (ac > 2 && has_space))
+		free_arg(av, true);
+	return (free_stack(&stack_a), EXIT_SUCCESS);
 }
